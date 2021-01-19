@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.Select_If">
+    <select id="select_one" parameterType="test01" resultType="test01">
+            select * from testSQL
+            <where>
+                <if test="name !=null and name !=' '">
+                    and name=#{name}
+                </if>
+                <if test="acc !=null and acc !=' '">
+                    and acc=#{acc}
+                </if>
+            </where>
+    </select>
+
+
+    <insert id="insert_all" parameterType="java.util.List">
+            INSERT INTO testSQL
+                (acc,pwd,name,phone)
+            VALUES
+                <foreach collection="list" item="pp" index="index" separator=",">
+                    (#{pp.acc},
+                     #{pp.pwd},
+                     #{pp.name},
+                     #{pp.phone}
+                    )
+                </foreach>
+    </insert>
+
+
+    <resultMap id="StundetsMap" type="test01">
+        <!--property：实体类中的属性 column：数据库中的字段-->
+        <!--数据库中的一个列  映射成数据库中的字段-->
+        <result  property="acc"  column="sno"/>
+        <result  property="pwd"  column="sclass"/>
+    </resultMap>
+
+    <!--查询全部用户-->
+    <select id="getUserAll" resultMap="StundetsMap">
+                  select * from students
+              </select>
+</mapper>
