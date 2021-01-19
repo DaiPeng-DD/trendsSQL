@@ -17,6 +17,11 @@ public class Dept {
     public Dept(String deptno,String dname){
         this.deptno=deptno;
         this.dname=dname;
+
+
+
+
+
     }
 
     @Override
